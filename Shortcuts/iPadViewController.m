@@ -71,4 +71,38 @@
 
 - (IBAction)settingsButtonTapped:(id)sender {
 }
+
+- (void)layoutForOrientation:(UIInterfaceOrientation)interfaceOrientation 
+{
+    if (UIInterfaceOrientationIsPortrait(interfaceOrientation)) {
+        leftView.frame = CGRectMake(19, 73, 355, 433);
+        middleView.frame = CGRectMake(393, 73, 355, 433);
+        rightView.frame = CGRectMake(768, 73, 355, 433);
+        bottomView.frame = CGRectMake(165, 10, 558, 447);
+        favoritesButton.frame = CGRectMake(47, 378, settingsButton.frame.size.width, favoritesButton.frame.size.height);
+    } else {
+        leftView.frame = CGRectMake(19, 73, 320, 433);
+        middleView.frame = CGRectMake(354, 73, 320, 433);
+        rightView.frame = CGRectMake(690, 73, 320, 433);
+        bottomView.frame = CGRectMake(190, 10, 785, 191);
+        favoritesButton.frame = CGRectMake(14, 126, favoritesButton.frame.size.width, favoritesButton.frame.size.height);
+        settingsButton.frame = CGRectMake(105, 126, settingsButton.frame.size.width, favoritesButton.frame.size.height);
+    }
+}
+- (void)viewWillAppear:(BOOL)animated {
+    NSLog(@"ipadViewController - viewWillAppear");
+    [self layoutForOrientation:
+     [UIApplication sharedApplication].statusBarOrientation];
+    
+}
+
+- (void)willRotateToInterfaceOrientation:
+    (UIInterfaceOrientation)toInterfaceOrientationduration
+                                duration:(NSTimeInterval)duration {
+    NSLog(@"iPadViewController - willRotateToInterfaceOrientation");
+    [UIView animateWithDuration:duration animations:^{
+        [self layoutForOrientation:toInterfaceOrientationduration];
+    }];
+}
+
 @end
